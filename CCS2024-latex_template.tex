@@ -1,0 +1,62 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIXED 
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\pagestyle{empty}
+\setlength{\parskip}{0.25\baselineskip}
+\renewcommand{\title}[1]{{\noindent\large\bfseries#1\medskip\\}}
+\renewcommand{\author}[2]{{\noindent #1 \medskip\\ \small #2 \medskip\\}}
+\usepackage[letterpaper,margin=20mm]{geometry}
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Optimising geospatial vector data matching algorithms for change detection with synthetic data}
+\author{
+% Authors Names
+Paul Guardiola,\textsuperscript{1}
+Juste Raimbault,\textsuperscript{1}
+Ana-Maria Olteanu-Raimond,\textsuperscript{1}
+Julien Perret\textsuperscript{1}
+}
+{
+% Authors Affiliations
+1. LASTIG, Univ Gustave Eiffel, IGN-ENSG
+}
+
+% ABSTRACT: short summary of the research that should take no more than a page [1].
+
+In order to plan and manage future territorial systems in a sustainable way, an understanding of past dynamics is necessary, to understand emerging patterns in such complex systems and provide insights to build simulation models \cite{rozenblat2018conclusion}. Change detection is a basic way to quantify territorial dynamics between successive time steps. Machine learning is widely used for that purpose \cite{wang2022machine}, generally on raster data, and deep learning provides high performance for example to quantify land-use change \cite{khelifi2020deep}. However, in many cases it is important to proceed to change detection on geospatial vector data, such as cases where additional data in attributes has to be used, where the curated dataset holds much more information than remote sensing, or where historical data was consolidated into this format, for example. Change detection in vector data is however not a trivial problem, since the introduction of noise or change in data specification, which occur often in practice, can render a basic method of intersecting features totally inefficient. Specific algorithms for matching geospatial vector datasets are a tool for that purpose \cite{xavier2016survey}. These algorithms have however a certain number of parameters which have to be tuned for an optimal performance given ground truth validation data. The choice of the algorithm itself, and of the many parameters, are left to expert appreciation, since a systematic optimisation of parameters remains rare due to the lack of ground truth data.
+
+This contribution proposes to tackle the lack of such ground truth validation data, which is in practice very time-consume and costly to produce, by using synthetic data generation. Similarly to training data generated synthetically in machine learning \cite{nikolenko2021synthetic}, our work considers synthetic data for simulation models - the matching algorithms \cite{raimbault2019second}. We consider the case of building change detection, which can be directly applied to the quantification of urban dynamics, and consider in this preliminary work two different matching algorithms which are widely used yet difficult to parametrise, namely the Geometric Matching of Areas algorithm \cite{harvey1998geometric}, and a multi-criteria matching algorithm based on belief theory \cite{olteanu2008data}.
+
+We develop a synthetic data generator, which starts from real-world building data, and perturbs the dataset to generate a virtual future state, for which the knowledge of matching links with the original data will be exact and will act as a ground truth. The generator operates a certain number of geometric operations, that were determined by investigating real data (open building data for France, provided by BDTOPO by the National Geographic Institute), including the deletion of some buildings in the reference and generated dataset (for appeared or destroyed buildings), the splitting or merging of buildings, and some noise in point coordinates or in shapes. The generator is tested on different urban morphologies (dense centre, periurban, rural), and both algorithms are optimised on synthetic ground truth datasets for each. Our main result is that optimal matching algorithm parameters depend on the urban context, and that therefore no absolute best method exists. Furthermore, using ground truth datasets (50 times around 100 buildings, for the cities of Strasbourg and Toulouse in France), we find optimal parameters of the generator to generate realistic ground truth datasets, suggesting that this tool can be used at a larger scale in the future. Future work will include extending this work to other European countries, to see to what extent the behaviour of our generator is not specific to the French urban geography, to test other matching algorithms, and to compare change detection results with machine learning results on remote sensing images.
+
+While our results are quite specific to geospatial data and the case of building change detection, they provide some insights into the broader question of spatial sensitivity analysis for complex systems \cite{raimbault2019space,raimbault2020scala}, since we describe a methodology to generate synthetic data by introducing noise into a real world dataset, a research direction that was remaining to be fully explored in the emerging field of spatial sensitivity analysis \cite{raimbault2023spatial}.
+
+
+\small
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
+
+
+
+
+\end{document}
+
+
+\bigskip
+{\small
+\noindent[1] Here you can add references.\\
+\noindent[2] Differently from this one, not written using a LLM.
+}
+
+
+
+\begin{figure}[b]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figure.pdf}
+  \caption{Figure caption.}
+\end{figure}
